@@ -13,10 +13,11 @@ jobs:
   pull_changes:
     runs-on: self-hosted
     steps:
-      - run: cd /home/pi/projects/devops-training
-      - run: git pull
+      - working-directory: /home/pi/projects/devops-training
+        run: git pull      
     
   build:
+    needs: pull_changes
     runs-on: self-hosted
     steps:
       - run: node -v      
