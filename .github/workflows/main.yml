@@ -11,12 +11,17 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  connect_server:
+  pull_changes:
     runs-on: self-hosted
-    
+    with: 
+      git-version: 2.x
     steps:
-      - run: node -v
       - run: cd /home/pi/projects/devops-training
       - run: git pull
+    
+  build:
+    runs-on: self-hosted
+    steps:
+      - run: node -v      
       - run: npm install
       - run: npm run build
