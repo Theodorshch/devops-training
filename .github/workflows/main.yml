@@ -23,3 +23,12 @@ jobs:
           npm install
           npm run build
         
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Copy built project to nginx folder
+        working-directory: ${{ secrets.WORKING_DIRECTORY }}
+        run: |
+          rm -r ${{ secrets.NGINX_DIRECTORY }}/devops-training
+          cp -r ${{ secrets.WORKING_DIRECTORY }}/dist/devops-training ${{ secrets.NGINX_DIRECTORY }}
