@@ -10,11 +10,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
   pull_changes:
     runs-on: self-hosted
-    with: 
-      git-version: 2.x
     steps:
       - run: cd /home/pi/projects/devops-training
       - run: git pull
