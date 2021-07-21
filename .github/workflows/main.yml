@@ -16,7 +16,7 @@ jobs:
     
     steps:
       - run: node -v
-      - run: cd projects/devops-training
+      - run: cd /home/pi/projects/devops-training
       - run: git pull
       - run: npm install
       - run: npm run build
