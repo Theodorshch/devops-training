@@ -8,13 +8,13 @@ jobs:
   pull_changes:
     runs-on: self-hosted
     steps:
-      - working-directory: ${{ secrets.WORKING_DIRECTORY }}
       - run: git pull
-    
+      - working-directory: ${{ secrets.WORKING_DIRECTORY }}
+      
   build:
     needs: pull_changes
     runs-on: self-hosted
     steps:
-      - working-directory: ${{ secrets.WORKING_DIRECTORY }}
       - run: npm install
       - run: npm run build
+      - working-directory: ${{ secrets.WORKING_DIRECTORY }}
