@@ -20,6 +20,6 @@ jobs:
     needs: pull_changes
     runs-on: self-hosted
     steps:
-      - run: node -v      
+      - working-directory: /home/pi/projects/devops-training    
       - run: npm install
       - run: npm run build
