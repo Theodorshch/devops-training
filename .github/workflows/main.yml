@@ -11,7 +11,7 @@ jobs:
       - name: Docker build
         run: docker build
       - name: Connect to docker hub
-        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{DOCKER_PASSWORD}}
+        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{secrets.DOCKER_PASSWORD}}
 
 #  pull_changes:
  #   runs-on: self-hosted
