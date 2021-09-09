@@ -5,31 +5,39 @@ on: workflow_dispatch
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  pull_changes:
-    runs-on: self-hosted
+  docker:
+    runs-on: ubuntu-latest
     steps:
-      - name: Pull changes
-        working-directory: ${{ secrets.WORKING_DIRECTORY }}
-        run: git pull
+      - name: Docker build
+        run: docker build
+      - name: Connect to docker hub
+        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{DOCKER_PASSWORD}}
+
+#  pull_changes:
+ #   runs-on: self-hosted
+  #  steps:
+   #   - name: Pull changes
+    #    working-directory: ${{ secrets.WORKING_DIRECTORY }}
+     #   run: git pull
         
       
-  build:
-    needs: pull_changes
-    runs-on: self-hosted
-    steps:
-      - name: Install dependencies
-        working-directory: ${{ secrets.WORKING_DIRECTORY }}
-        run: |
-          npm install
-          npm run build
+ # build:
+  #  needs: pull_changes
+   # runs-on: self-hosted
+    #steps:
+     # - name: Install dependencies
+      #  working-directory: ${{ secrets.WORKING_DIRECTORY }}
+       # run: |
+        #  npm install
+         # npm run build
         
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Copy built project to nginx folder
-        run: |
-          rm -r ${{ secrets.NGINX_DIRECTORY }}/devops-training
-          cp -r ${{ secrets.WORKING_DIRECTORY }}/dist/devops-training ${{ secrets.NGINX_DIRECTORY }}
-      - name: Restart nginx
-        run: sudo systemctl restart nginx
+#  deploy:
+#    needs: build
+#    runs-on: self-hosted
+#    steps:
+#      - name: Copy built project to nginx folder
+#        run: |
+#          rm -r ${{ secrets.NGINX_DIRECTORY }}/devops-training
+#          cp -r ${{ secrets.WORKING_DIRECTORY }}/dist/devops-training ${{ secrets.NGINX_DIRECTORY }}
+#      - name: Restart nginx
+#        run: sudo systemctl restart nginx
