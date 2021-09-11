@@ -8,14 +8,16 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.4
-      - name: Docker build
-        run: docker build -t teoborshch/devops-training .
-      - name: Connect to docker hub
-        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Push to docker hub
-        run: docker push teoborshch/devops-training
+      - name: Buildx
+        run: docker buildx ls
+#      - name: Checkout
+#        uses: actions/checkout@v2.3.4
+#      - name: Docker build
+#        run: docker build -t teoborshch/devops-training .
+#      - name: Connect to docker hub
+#        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{secrets.DOCKER_PASSWORD}}
+#      - name: Push to docker hub
+#        run: docker push teoborshch/devops-training
 
 #  pull_changes:
  #   runs-on: self-hosted
