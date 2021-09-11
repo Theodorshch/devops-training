@@ -6,7 +6,7 @@ on: workflow_dispatch
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   docker:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Buildx
         run: docker buildx ls
