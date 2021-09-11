@@ -8,27 +8,18 @@ jobs:
   docker:
     runs-on: self-hosted
     steps:
-#      - name: Run on arm64
-#        uses: uraimo/run-on-arch-action@v2.1.1
-#        with:
-#          distro: ubuntu20.04
-#          run: docker buildx ls
-#      - name: setup-docker
-#        uses: docker-practice/actions-setup-docker@1.0.8
-      
-#      - name: Docker Setup Buildx
-#        uses: docker/setup-buildx-action@v1.6.0
-    
-      - name: Buildx
-        run: docker buildx ls
       - name: Checkout
         uses: actions/checkout@v2.3.4
-      - name: Docker build
-        run: docker build --no-cache --platform linux/arm64 -t teoborshch/devops-training .
-#      - name: Connect to docker hub
-#        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{secrets.DOCKER_PASSWORD}}
-#      - name: Push to docker hub
-#        run: docker push teoborshch/devops-training
+      - name: Docker build & run
+        run: |
+          docker build -t teoborshch/devops-training .
+          docker container stop devops-training
+          docker container rm devops-training
+          docker run -d -p 3000:80 --name devops-training teoborshch/devops-training
+      - name: Connect to docker hub
+        run: docker login -u ${{secrets.DOCKER_LOGIN}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Push to docker hub
+        run: docker push teoborshch/devops-training
 
 #  pull_changes:
  #   runs-on: self-hosted
